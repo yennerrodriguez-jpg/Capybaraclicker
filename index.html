@@ -53,7 +53,7 @@
 <div class="box">
   <h2>Watch this ad to play</h2>
 
-  <!-- ADSTERRA SMART LINK IN IFRAME -->
+  <!-- ADSTERRA SMART LINK -->
   <iframe
     src="https://www.effectivegatecpm.com/p5mjdi67a?key=b3d42b2d4432daca356e839ace1bcc12"
     sandbox="allow-scripts allow-same-origin allow-popups allow-forms">
@@ -67,8 +67,11 @@
 </div>
 
 <script>
-  const GAME_URL =
+  const GAME_BASE =
     "https://capybara-proxy.s8506497.workers.dev/https://bitlifeonline.github.io/capybara-clicker/";
+
+  // MUST MATCH worker.js
+  const SECRET = "CHANGE_THIS_SECRET";
 
   const btn = document.getElementById("playBtn");
   const status = document.getElementById("status");
@@ -87,14 +90,18 @@
     }
   }, 1000);
 
+  function makeToken() {
+    const ts = Math.floor(Date.now() / 1000);
+    const sig = btoa(ts + SECRET);
+    return `${ts}.${sig}`;
+  }
+
   btn.onclick = () => {
-    if (!btn.disabled) {
-      window.open(GAME_URL, "_blank");
-    }
+    if (btn.disabled) return;
+    const token = makeToken();
+    window.open(`${GAME_BASE}?token=${token}`, "_blank");
   };
 </script>
 
 </body>
 </html>
-
-
