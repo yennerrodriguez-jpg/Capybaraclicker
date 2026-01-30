@@ -2,30 +2,55 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Capybara Clicker</title>
+  <title>Launch Capybara Clicker</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <style>
-    html, body {
+    body {
       margin: 0;
-      padding: 0;
-      height: 100%;
-      background: black;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: system-ui, Arial, sans-serif;
+      background: #0f172a;
+      color: white;
+      text-align: center;
     }
 
-    iframe {
-      width: 100%;
-      height: 100%;
+    button {
+      padding: 14px 22px;
+      font-size: 18px;
       border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      background: #38bdf8;
+      color: black;
     }
   </style>
+
+  <script>
+    const GAME_URL =
+      "https://capybara-proxy.s8506497.workers.dev/https://bitlifeonline.github.io/capybara-clicker/";
+
+    // Try to open immediately
+    window.onload = () => {
+      const opened = window.open(GAME_URL, "_blank");
+      if (opened) {
+        opened.focus();
+      }
+    };
+  </script>
 </head>
 <body>
 
-<iframe
-  src="https://simple-proxy.s8506497.workers.dev/https%3A%2F%2Fbitlifeonline.github.io%2Fcapybara-clicker%2F"
-  allowfullscreen>
-</iframe>
+  <div>
+    <h1>Launching Capybara Clicker…</h1>
+    <p>If nothing opens, click below 👇</p>
+    <button onclick="window.open(GAME_URL, '_blank')">
+      Open Game
+    </button>
+  </div>
 
 </body>
 </html>
