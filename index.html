@@ -2,20 +2,33 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Launch Capybara Clicker</title>
+  <title>Watch Ad to Play</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <style>
     body {
       margin: 0;
       height: 100vh;
+      background: #0f172a;
+      color: white;
+      font-family: system-ui, Arial, sans-serif;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-family: system-ui, Arial, sans-serif;
-      background: #0f172a;
-      color: white;
       text-align: center;
+    }
+
+    .box {
+      max-width: 420px;
+    }
+
+    iframe {
+      width: 100%;
+      height: 250px;
+      border: none;
+      border-radius: 10px;
+      margin-bottom: 12px;
+      background: white;
     }
 
     button {
@@ -23,34 +36,65 @@
       font-size: 18px;
       border: none;
       border-radius: 8px;
-      cursor: pointer;
-      background: #38bdf8;
+      background: #22c55e;
       color: black;
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    button.enabled {
+      opacity: 1;
+      cursor: pointer;
     }
   </style>
-
-  <script>
-    const GAME_URL =
-      "https://capybara-proxy.s8506497.workers.dev/https://bitlifeonline.github.io/capybara-clicker/";
-
-    // Try to open immediately
-    window.onload = () => {
-      const opened = window.open(GAME_URL, "_blank");
-      if (opened) {
-        opened.focus();
-      }
-    };
-  </script>
 </head>
 <body>
 
-  <div>
-    <h1>Launching Capybara Clicker…</h1>
-    <p>If nothing opens, click below 👇</p>
-    <button onclick="window.open(GAME_URL, '_blank')">
-      Open Game
-    </button>
-  </div>
+<div class="box">
+  <h2>Watch this ad to play</h2>
+
+  <!-- ADSTERRA SMART LINK IN IFRAME -->
+  <iframe
+    src="https://www.effectivegatecpm.com/p5mjdi67a?key=b3d42b2d4432daca356e839ace1bcc12"
+    sandbox="allow-scripts allow-same-origin allow-popups allow-forms">
+  </iframe>
+
+  <p id="status">Please wait 15 seconds…</p>
+
+  <button id="playBtn" disabled>
+    Play Game
+  </button>
+</div>
+
+<script>
+  const GAME_URL =
+    "https://capybara-proxy.s8506497.workers.dev/https://bitlifeonline.github.io/capybara-clicker/";
+
+  const btn = document.getElementById("playBtn");
+  const status = document.getElementById("status");
+
+  let timeLeft = 15;
+
+  const timer = setInterval(() => {
+    timeLeft--;
+    status.textContent = `Please wait ${timeLeft} seconds…`;
+
+    if (timeLeft <= 0) {
+      clearInterval(timer);
+      status.textContent = "Ad complete ✔";
+      btn.disabled = false;
+      btn.classList.add("enabled");
+    }
+  }, 1000);
+
+  btn.onclick = () => {
+    if (!btn.disabled) {
+      window.open(GAME_URL, "_blank");
+    }
+  };
+</script>
 
 </body>
 </html>
+
+
